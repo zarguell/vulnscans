@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuites failures="4" name="Dastardly scan results - have a vulnerability-free day!" tests="56">
+    <testsuite failures="0" name="https://ginandjuice.shop:443/?search=657810" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/admin" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/filter?category=Accompaniments" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/filter?category=Books" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/filter?category=Gin" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/filter?category=Accessories" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/filter?category=Juice" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=10" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=7" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=8" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=4" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=9" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=1" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=6" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=11" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=3" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=5" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=12" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product?productId=2" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="1" name="https://ginandjuice.shop:443/catalog/product-search-results/1" tests="1">
+        <testcase name="Cross-site scripting (reflected)">
+            <failure message="Cross-site scripting (reflected) found at https://ginandjuice.shop/catalog/product-search-results/1" type="Info"><![CDATA[
+Severity: Info
+
+Confidence: Certain
+
+Host: https://ginandjuice.shop
+
+Path: /catalog/product-search-results/1
+
+
+Issue Detail
+The value of the term request parameter is copied into the HTML document as plain text between tags. The payload dqkvm<script>alert(1)</script>sezow was submitted in the term parameter. This input was echoed unmodified in the application's response.
+
+This proof-of-concept attack demonstrates that it is possible to inject arbitrary JavaScript into the application's response.
+
+The response does not state that the content type is HTML. The issue is only directly exploitable if a browser can be made to interpret the response as HTML. No modern browser will interpret the response as HTML. However, the issue might be indirectly exploitable if a client-side script processes the response and embeds it into an HTML context.
+
+Issue Background
+Reflected cross-site scripting vulnerabilities arise when data is copied from a request and echoed into the application's immediate response in an unsafe way. An attacker can use the vulnerability to construct a request that, if issued by another application user, will cause JavaScript code supplied by the attacker to execute within the user's browser in the context of that user's session with the application.
+
+The attacker-supplied code can perform a wide variety of actions, such as stealing the victim's session token or login credentials, performing arbitrary actions on the victim's behalf, and logging their keystrokes.
+
+Users can be induced to issue the attacker's crafted request in various ways. For example, the attacker can send a victim a link containing a malicious URL in an email or instant message. They can submit the link to popular web sites that allow content authoring, for example in blog comments. And they can create an innocuous looking web site that causes anyone viewing it to make arbitrary cross-domain requests to the vulnerable application (using either the GET or the POST method).
+
+The security impact of cross-site scripting vulnerabilities is dependent upon the nature of the vulnerable application, the kinds of data and functionality that it contains, and the other applications that belong to the same domain and organization. If the application is used only to display non-sensitive public content, with no authentication or access control functionality, then a cross-site scripting flaw may be considered low risk. However, if the same application resides on a domain that can access cookies for other more security-critical applications, then the vulnerability could be used to attack those other applications, and so may be considered high risk. Similarly, if the organization that owns the application is a likely target for phishing attacks, then the vulnerability could be leveraged to lend credibility to such attacks, by injecting Trojan functionality into the vulnerable application and exploiting users' trust in the organization in order to capture credentials for other applications that it owns. In many kinds of application, such as those providing online banking functionality, cross-site scripting should always be considered high risk. 
+
+
+Issue Remediation
+In most situations where user-controllable data is copied into application responses, cross-site scripting
+attacks can be prevented using two layers of defenses:
+
+
+
+- Input should be validated as strictly as possible on arrival, given the kind of content that
+it is expected to contain. For example, personal names should consist of alphabetical
+and a small range of typographical characters, and be relatively short; a year of birth
+should consist of exactly four numerals; email addresses should match a well-defined
+regular expression. Input which fails the validation should be rejected, not sanitized.
+
+- User input should be HTML-encoded at any point where it is copied into
+application responses. All HTML metacharacters, including < > " ' and =, should be
+replaced with the corresponding HTML entities (&lt; &gt; etc).
+
+In cases where the application's functionality allows users to author content using
+a restricted subset of HTML tags and attributes (for example, blog comments which
+allow limited formatting and linking), it is necessary to parse the supplied HTML to
+validate that it does not use any dangerous syntax; this is a non-trivial task.
+
+
+Evidence
+Request:
+POST /catalog/product-search-results/1 HTTP/2
+Host: ginandjuice.shop
+Accept-Encoding: gzip, deflate
+Accept: */*
+Accept-Language: en-US;q=0.9,en;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.125 Safari/537.36
+Connection: close
+Cache-Control: max-age=0
+Cookie: session=gB9OTrzxwtTnawElYs1vAX5sVOOTZmqV; AWSALB=1W76zwO2hYafc+SgacPfINM3j6h4erqhhqY0eWWYVh/czhVCORzyYMHmfMgdQ1PFt1o0J5KJfqbg8iquN1qp3p/9djJucI1rToHOvyVvZnlsPrTP209/6bSPaXsH; AWSALBCORS=1W76zwO2hYafc+SgacPfINM3j6h4erqhhqY0eWWYVh/czhVCORzyYMHmfMgdQ1PFt1o0J5KJfqbg8iquN1qp3p/9djJucI1rToHOvyVvZnlsPrTP209/6bSPaXsH
+Origin: https://ginandjuice.shop
+Referer: https://ginandjuice.shop/catalog/product?productId=1
+Content-Type: text/plain;charset=UTF-8
+Sec-CH-UA: ".Not/A)Brand";v="99", "Google Chrome";v="108", "Chromium";v="108"
+Sec-CH-UA-Platform: Windows
+Sec-CH-UA-Mobile: ?0
+Content-Length: 49
+
+csrf=di09CygePSvCozBDkcscpYcKBZVUt1aZ&term=841364dqkvm<script>alert(1)</script>sezow
+
+Response:
+HTTP/2 200 OK
+Date: Wed, 01 Feb 2023 16:49:45 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 1515
+Set-Cookie: AWSALB=tg3tH2GVlFXnjp8FmWS1isD/SAqOfAuf5c3U0M3IB8mLOyRq2Iv9nu8bHsgyc7A6lR19QLXKtfpIsr03Vl4R8W7aJ/YVn41QZvd+LEyYCo9jj399zKRYA6sZEzeS; Expires=Wed, 08 Feb 2023 16:49:45 GMT; Path=/
+Set-Cookie: AWSALBCORS=tg3tH2GVlFXnjp8FmWS1isD/SAqOfAuf5c3U0M3IB8mLOyRq2Iv9nu8bHsgyc7A6lR19QLXKtfpIsr03Vl4R8W7aJ/YVn41QZvd+LEyYCo9jj399zKRYA6sZEzeS; Expires=Wed, 08 Feb 2023 16:49:45 GMT; Path=/; SameSite=None; Secure
+X-Backend: ce8a0525-4d21-4016-8d41-c652c3e120b1
+
+{"results":[{"id":"1","name":"Gin Flavouring Gift Box","category":"Gin","rating":"/resources/images/rating3.png","price":"$68.70","image":"/image/scanme/productcatalog/products/4.jpg","released":true,Snipe recipe book provided.\nWARNING: Please drink responsibly to avoid choking on any solid objects.","link":"/catalog/product?productId=1"}],"csrf":"qLQvb1PEmcQWUraO3eLUpkwPPERobH4b","searchTerm":"841364dqkvm<script>alert(1)</script>sezow"}
+
+
+
+References
+	
+- Web Security Academy: Cross-site scripting (https://portswigger.net/web-security/cross-site-scripting)
+
+- Web Security Academy: Reflected cross-site scripting (https://portswigger.net/web-security/cross-site-scripting/reflected)
+
+- Using Burp to Find XSS issues (https://support.portswigger.net/customer/portal/articles/1965737-Methodology_XSS.html)
+
+
+
+Vulnerability Classifications
+
+- CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') (https://cwe.mitre.org/data/definitions/79.html)
+
+- CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS) (https://cwe.mitre.org/data/definitions/80.html)
+
+- CWE-116: Improper Encoding or Escaping of Output (https://cwe.mitre.org/data/definitions/116.html)
+
+- CWE-159: Failure to Sanitize Special Element (https://cwe.mitre.org/data/definitions/159.html)
+
+- CAPEC-591: Reflected XSS (https://capec.mitre.org/data/definitions/591.html)
+
+
+
+Reported by Dastardly: https://portswigger.net/burp/dastardly/scan-checks
+]]></failure>
+        </testcase>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product-search-results/5" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product/stock" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product/stock" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product/stock" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/product/stock" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/search/10" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/search/11" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/search/12" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="1" name="https://ginandjuice.shop:443/catalog/search/2" tests="1">
+        <testcase name="Cross-site scripting (reflected)">
+            <failure message="Cross-site scripting (reflected) found at https://ginandjuice.shop/catalog/search/2" type="High"><![CDATA[
+Severity: High
+
+Confidence: Firm
+
+Host: https://ginandjuice.shop
+
+Path: /catalog/search/2
+
+
+Issue Detail
+The value of the term request parameter is copied into the value of an HTML tag attribute which is encapsulated in double quotation marks. The payload "><KtmVC> was submitted in the term parameter. This input was echoed unmodified in the application's response.
+
+This behavior demonstrates that it is possible to inject new HTML tags into the returned document. An attempt was made to identify a full proof-of-concept attack for injecting arbitrary JavaScript but this was not successful. You should manually examine the application's behavior and attempt to identify any unusual input validation or other obstacles that may be in place.
+
+Issue Background
+Reflected cross-site scripting vulnerabilities arise when data is copied from a request and echoed into the application's immediate response in an unsafe way. An attacker can use the vulnerability to construct a request that, if issued by another application user, will cause JavaScript code supplied by the attacker to execute within the user's browser in the context of that user's session with the application.
+
+The attacker-supplied code can perform a wide variety of actions, such as stealing the victim's session token or login credentials, performing arbitrary actions on the victim's behalf, and logging their keystrokes.
+
+Users can be induced to issue the attacker's crafted request in various ways. For example, the attacker can send a victim a link containing a malicious URL in an email or instant message. They can submit the link to popular web sites that allow content authoring, for example in blog comments. And they can create an innocuous looking web site that causes anyone viewing it to make arbitrary cross-domain requests to the vulnerable application (using either the GET or the POST method).
+
+The security impact of cross-site scripting vulnerabilities is dependent upon the nature of the vulnerable application, the kinds of data and functionality that it contains, and the other applications that belong to the same domain and organization. If the application is used only to display non-sensitive public content, with no authentication or access control functionality, then a cross-site scripting flaw may be considered low risk. However, if the same application resides on a domain that can access cookies for other more security-critical applications, then the vulnerability could be used to attack those other applications, and so may be considered high risk. Similarly, if the organization that owns the application is a likely target for phishing attacks, then the vulnerability could be leveraged to lend credibility to such attacks, by injecting Trojan functionality into the vulnerable application and exploiting users' trust in the organization in order to capture credentials for other applications that it owns. In many kinds of application, such as those providing online banking functionality, cross-site scripting should always be considered high risk. 
+
+
+Issue Remediation
+In most situations where user-controllable data is copied into application responses, cross-site scripting
+attacks can be prevented using two layers of defenses:
+
+
+
+- Input should be validated as strictly as possible on arrival, given the kind of content that
+it is expected to contain. For example, personal names should consist of alphabetical
+and a small range of typographical characters, and be relatively short; a year of birth
+should consist of exactly four numerals; email addresses should match a well-defined
+regular expression. Input which fails the validation should be rejected, not sanitized.
+
+- User input should be HTML-encoded at any point where it is copied into
+application responses. All HTML metacharacters, including < > " ' and =, should be
+replaced with the corresponding HTML entities (&lt; &gt; etc).
+
+In cases where the application's functionality allows users to author content using
+a restricted subset of HTML tags and attributes (for example, blog comments which
+allow limited formatting and linking), it is necessary to parse the supplied HTML to
+validate that it does not use any dangerous syntax; this is a non-trivial task.
+
+
+Evidence
+Request:
+POST /catalog/search/2 HTTP/2
+Host: ginandjuice.shop
+Accept-Encoding: gzip, deflate
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Language: en-US;q=0.9,en;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.125 Safari/537.36
+Connection: close
+Cache-Control: max-age=0
+Cookie: session=Mx1F6OJW1UxqrlSEz4Xh6BQjNMlBtgQR; AWSALB=2sUyqrq95mHesC0OjNOGQNmaUGSA/N8V/6IFn2Pt9dt3kLJKX1U2+0ZpkitW2icQaj78pS+zdn+ZwUe52kUmriu703o0EBf+wnzYdA60r0RW3DV562bB6mJsmD0m; AWSALBCORS=2sUyqrq95mHesC0OjNOGQNmaUGSA/N8V/6IFn2Pt9dt3kLJKX1U2+0ZpkitW2icQaj78pS+zdn+ZwUe52kUmriu703o0EBf+wnzYdA60r0RW3DV562bB6mJsmD0m
+Origin: https://ginandjuice.shop
+Upgrade-Insecure-Requests: 1
+Referer: https://ginandjuice.shop/catalog/product?productId=2
+Content-Type: application/x-www-form-urlencoded
+Sec-CH-UA: ".Not/A)Brand";v="99", "Google Chrome";v="108", "Chromium";v="108"
+Sec-CH-UA-Platform: Windows
+Sec-CH-UA-Mobile: ?0
+Content-Length: 49
+
+term=341321%22%3e%3cKtmVC%3e&csrf=W9rdVdIoNGqSL6z59tpRvwnqFwL0MqCa
+
+Response:
+HTTP/2 200 OK
+Date: Wed, 01 Feb 2023 16:50:27 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 3344
+Set-Cookie: AWSALB=rqXvgaixoCxpBomJoa31pHY4yC7NCiQPbBQcHzDMGdOdlb7GXV6louzZUgisrAIQtihfDs4izROaHW221ohtOpjonrLPA0Hu+NPIMpzRBTpPKyeqqUC9aynnqq05; Expires=Wed, 08 Feb 2023 16:50:27 GMT; Path=/
+Set-Cookie: AWSALBCORS=rqXvgaixoCxpBomJoa31pHY4yC7NCiQPbBQcHzDMGdOdlb7GXV6louzZUgisrAIQtihfDs4izROaHW221ohtOpjonrLPA0Hu+NPIMpzRBTpPKyeqqUC9aynnqq05; Expires=Wed, 08 Feb 2023 16:50:27 GMT; Path=/; SameSite=None; Secure
+X-Backend: 00f94d98-fcdb-4209-9c58-4a787d4cce88
+
+<!DOCTYPE html>
+<html>
+<head>
+<link href=/resources/labheader/css/scanMeHeader.css rel=stylesheet>
+<link href=/resources/css/labsEcommerce.css rel=stylesheet>
+<link href=/rSnip<input type=text placeholder='Search products...' name='term' value="341321"><KtmVC>" />Snip
+
+
+
+References
+	
+- Web Security Academy: Cross-site scripting (https://portswigger.net/web-security/cross-site-scripting)
+
+- Web Security Academy: Reflected cross-site scripting (https://portswigger.net/web-security/cross-site-scripting/reflected)
+
+- Using Burp to Find XSS issues (https://support.portswigger.net/customer/portal/articles/1965737-Methodology_XSS.html)
+
+
+
+Vulnerability Classifications
+
+- CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') (https://cwe.mitre.org/data/definitions/79.html)
+
+- CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS) (https://cwe.mitre.org/data/definitions/80.html)
+
+- CWE-116: Improper Encoding or Escaping of Output (https://cwe.mitre.org/data/definitions/116.html)
+
+- CWE-159: Failure to Sanitize Special Element (https://cwe.mitre.org/data/definitions/159.html)
+
+- CAPEC-591: Reflected XSS (https://capec.mitre.org/data/definitions/591.html)
+
+
+
+Reported by Dastardly: https://portswigger.net/burp/dastardly/scan-checks
+]]></failure>
+        </testcase>
+    </testsuite>
+    <testsuite failures="1" name="https://ginandjuice.shop:443/catalog/search/3" tests="1">
+        <testcase name="Cross-site scripting (reflected)">
+            <failure message="Cross-site scripting (reflected) found at https://ginandjuice.shop/catalog/search/3" type="High"><![CDATA[
+Severity: High
+
+Confidence: Certain
+
+Host: https://ginandjuice.shop
+
+Path: /catalog/search/3
+
+
+Issue Detail
+The value of the term request parameter is copied into a JavaScript string which is encapsulated in single quotation marks. The payload 36253\';alert(1)//215 was submitted in the term parameter. This input was echoed as 36253\\';alert(1)//215 in the application's response.
+
+This proof-of-concept attack demonstrates that it is possible to inject arbitrary JavaScript into the application's response.
+
+The application attempts to prevent termination of the quoted JavaScript string by placing a backslash character (\) before any quotation mark characters contained within the input. The purpose of this defense is to escape the quotation mark and prevent it from terminating the string. However, the application fails to escape any backslash characters that already appear within the input itself. This enables an attacker to supply their own backslash character before the quotation mark, which has the effect of escaping the backslash character added by the application, and so the quotation mark remains unescaped and succeeds in terminating the string. This technique is used in the attack demonstrated.
+
+Issue Background
+Reflected cross-site scripting vulnerabilities arise when data is copied from a request and echoed into the application's immediate response in an unsafe way. An attacker can use the vulnerability to construct a request that, if issued by another application user, will cause JavaScript code supplied by the attacker to execute within the user's browser in the context of that user's session with the application.
+
+The attacker-supplied code can perform a wide variety of actions, such as stealing the victim's session token or login credentials, performing arbitrary actions on the victim's behalf, and logging their keystrokes.
+
+Users can be induced to issue the attacker's crafted request in various ways. For example, the attacker can send a victim a link containing a malicious URL in an email or instant message. They can submit the link to popular web sites that allow content authoring, for example in blog comments. And they can create an innocuous looking web site that causes anyone viewing it to make arbitrary cross-domain requests to the vulnerable application (using either the GET or the POST method).
+
+The security impact of cross-site scripting vulnerabilities is dependent upon the nature of the vulnerable application, the kinds of data and functionality that it contains, and the other applications that belong to the same domain and organization. If the application is used only to display non-sensitive public content, with no authentication or access control functionality, then a cross-site scripting flaw may be considered low risk. However, if the same application resides on a domain that can access cookies for other more security-critical applications, then the vulnerability could be used to attack those other applications, and so may be considered high risk. Similarly, if the organization that owns the application is a likely target for phishing attacks, then the vulnerability could be leveraged to lend credibility to such attacks, by injecting Trojan functionality into the vulnerable application and exploiting users' trust in the organization in order to capture credentials for other applications that it owns. In many kinds of application, such as those providing online banking functionality, cross-site scripting should always be considered high risk. 
+
+
+Remediation Detail
+Echoing user-controllable data within a script context is inherently dangerous and can make XSS attacks difficult to prevent. If at all possible, the application should avoid echoing user data within this context. If it is unavoidable to echo user input into a quoted JavaScript string then the backslash character should be blocked, or escaped by replacing it with two backslashes.
+
+Remediation Background
+In most situations where user-controllable data is copied into application responses, cross-site scripting
+attacks can be prevented using two layers of defenses:
+
+
+
+- Input should be validated as strictly as possible on arrival, given the kind of content that
+it is expected to contain. For example, personal names should consist of alphabetical
+and a small range of typographical characters, and be relatively short; a year of birth
+should consist of exactly four numerals; email addresses should match a well-defined
+regular expression. Input which fails the validation should be rejected, not sanitized.
+
+- User input should be HTML-encoded at any point where it is copied into
+application responses. All HTML metacharacters, including < > " ' and =, should be
+replaced with the corresponding HTML entities (&lt; &gt; etc).
+
+In cases where the application's functionality allows users to author content using
+a restricted subset of HTML tags and attributes (for example, blog comments which
+allow limited formatting and linking), it is necessary to parse the supplied HTML to
+validate that it does not use any dangerous syntax; this is a non-trivial task.
+
+
+Evidence
+Request:
+POST /catalog/search/3 HTTP/2
+Host: ginandjuice.shop
+Accept-Encoding: gzip, deflate
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Language: en-US;q=0.9,en;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.125 Safari/537.36
+Connection: close
+Cache-Control: max-age=0
+Cookie: session=GmvxeWeTB8lggIguiQDpiQ5OMVNcF0Km; AWSALB=egTPRG0dYol7WujQeWepGY7qmJQ3G3R7PJTcUfrJZFFobOeJMhUBch8uwEkIHhcuTjgQX2z9ko4QjdhO5e/bUHsMiszBhejo/hNP6vmSOAeH9DwIdNNX39APmiIi; AWSALBCORS=egTPRG0dYol7WujQeWepGY7qmJQ3G3R7PJTcUfrJZFFobOeJMhUBch8uwEkIHhcuTjgQX2z9ko4QjdhO5e/bUHsMiszBhejo/hNP6vmSOAeH9DwIdNNX39APmiIi
+Origin: https://ginandjuice.shop
+Upgrade-Insecure-Requests: 1
+Referer: https://ginandjuice.shop/catalog/product?productId=3
+Content-Type: application/x-www-form-urlencoded
+Sec-CH-UA: ".Not/A)Brand";v="99", "Google Chrome";v="108", "Chromium";v="108"
+Sec-CH-UA-Platform: Windows
+Sec-CH-UA-Mobile: ?0
+Content-Length: 49
+
+term=83452436253%5c'%3balert(1)%2f%2f215&csrf=XuoQD3UmLF8n5YFlMo92QPUbRsRzSCpd
+
+Response:
+HTTP/2 200 OK
+Date: Wed, 01 Feb 2023 16:51:59 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 3528
+Set-Cookie: AWSALB=fV2ei77llGTzfC4u0qDdujeIN9aH8WvPu1nHptfNTeC4ffRYpe5BdZ5G6zotxKvK1kGkmCMJQiKflTk+i8+g0TGYfVvNkr1KWlpFskTdPZNYonJGkLPSjm/gMA3M; Expires=Wed, 08 Feb 2023 16:51:59 GMT; Path=/
+Set-Cookie: AWSALBCORS=fV2ei77llGTzfC4u0qDdujeIN9aH8WvPu1nHptfNTeC4ffRYpe5BdZ5G6zotxKvK1kGkmCMJQiKflTk+i8+g0TGYfVvNkr1KWlpFskTdPZNYonJGkLPSjm/gMA3M; Expires=Wed, 08 Feb 2023 16:51:59 GMT; Path=/; SameSite=None; Secure
+X-Backend: cd70df6f-dc79-4426-ba51-e6fc6bb4f8aa
+
+<!DOCTYPE html>
+<html>
+<head>
+<link href=/resources/labheader/css/scanMeHeader.css rel=stylesheet>
+<link href=/resources/css/labsEcommerce.css rel=stylesheet>
+<link href=/rSnip<script>
+var searchTerms = '83452436253\\';alert(1)//215';
+document.write('<img src="/resources/images/tracker.gif?searchTerms='+encodeURIComponent(searchTerms)+'">Snip
+
+
+
+References
+	
+- Web Security Academy: Cross-site scripting (https://portswigger.net/web-security/cross-site-scripting)
+
+- Web Security Academy: Reflected cross-site scripting (https://portswigger.net/web-security/cross-site-scripting/reflected)
+
+- Using Burp to Find XSS issues (https://support.portswigger.net/customer/portal/articles/1965737-Methodology_XSS.html)
+
+
+
+Vulnerability Classifications
+
+- CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') (https://cwe.mitre.org/data/definitions/79.html)
+
+- CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS) (https://cwe.mitre.org/data/definitions/80.html)
+
+- CWE-116: Improper Encoding or Escaping of Output (https://cwe.mitre.org/data/definitions/116.html)
+
+- CWE-159: Failure to Sanitize Special Element (https://cwe.mitre.org/data/definitions/159.html)
+
+- CAPEC-591: Reflected XSS (https://capec.mitre.org/data/definitions/591.html)
+
+
+
+Reported by Dastardly: https://portswigger.net/burp/dastardly/scan-checks
+]]></failure>
+        </testcase>
+    </testsuite>
+    <testsuite failures="1" name="https://ginandjuice.shop:443/catalog/search/4" tests="1">
+        <testcase name="Cross-site scripting (reflected)">
+            <failure message="Cross-site scripting (reflected) found at https://ginandjuice.shop/catalog/search/4" type="High"><![CDATA[
+Severity: High
+
+Confidence: Certain
+
+Host: https://ginandjuice.shop
+
+Path: /catalog/search/4
+
+
+Issue Detail
+The value of the term request parameter is copied into a JavaScript string which is encapsulated in single quotation marks. The payload 42241';alert(1)//311 was submitted in the term parameter. This input was echoed unmodified in the application's response.
+
+This proof-of-concept attack demonstrates that it is possible to inject arbitrary JavaScript into the application's response.
+
+Issue Background
+Reflected cross-site scripting vulnerabilities arise when data is copied from a request and echoed into the application's immediate response in an unsafe way. An attacker can use the vulnerability to construct a request that, if issued by another application user, will cause JavaScript code supplied by the attacker to execute within the user's browser in the context of that user's session with the application.
+
+The attacker-supplied code can perform a wide variety of actions, such as stealing the victim's session token or login credentials, performing arbitrary actions on the victim's behalf, and logging their keystrokes.
+
+Users can be induced to issue the attacker's crafted request in various ways. For example, the attacker can send a victim a link containing a malicious URL in an email or instant message. They can submit the link to popular web sites that allow content authoring, for example in blog comments. And they can create an innocuous looking web site that causes anyone viewing it to make arbitrary cross-domain requests to the vulnerable application (using either the GET or the POST method).
+
+The security impact of cross-site scripting vulnerabilities is dependent upon the nature of the vulnerable application, the kinds of data and functionality that it contains, and the other applications that belong to the same domain and organization. If the application is used only to display non-sensitive public content, with no authentication or access control functionality, then a cross-site scripting flaw may be considered low risk. However, if the same application resides on a domain that can access cookies for other more security-critical applications, then the vulnerability could be used to attack those other applications, and so may be considered high risk. Similarly, if the organization that owns the application is a likely target for phishing attacks, then the vulnerability could be leveraged to lend credibility to such attacks, by injecting Trojan functionality into the vulnerable application and exploiting users' trust in the organization in order to capture credentials for other applications that it owns. In many kinds of application, such as those providing online banking functionality, cross-site scripting should always be considered high risk. 
+
+
+Remediation Detail
+Echoing user-controllable data within a script context is inherently dangerous and can make XSS attacks difficult to prevent. If at all possible, the application should avoid echoing user data within this context.
+
+Remediation Background
+In most situations where user-controllable data is copied into application responses, cross-site scripting
+attacks can be prevented using two layers of defenses:
+
+
+
+- Input should be validated as strictly as possible on arrival, given the kind of content that
+it is expected to contain. For example, personal names should consist of alphabetical
+and a small range of typographical characters, and be relatively short; a year of birth
+should consist of exactly four numerals; email addresses should match a well-defined
+regular expression. Input which fails the validation should be rejected, not sanitized.
+
+- User input should be HTML-encoded at any point where it is copied into
+application responses. All HTML metacharacters, including < > " ' and =, should be
+replaced with the corresponding HTML entities (&lt; &gt; etc).
+
+In cases where the application's functionality allows users to author content using
+a restricted subset of HTML tags and attributes (for example, blog comments which
+allow limited formatting and linking), it is necessary to parse the supplied HTML to
+validate that it does not use any dangerous syntax; this is a non-trivial task.
+
+
+Evidence
+Request:
+POST /catalog/search/4 HTTP/2
+Host: ginandjuice.shop
+Accept-Encoding: gzip, deflate
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Language: en-US;q=0.9,en;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.125 Safari/537.36
+Connection: close
+Cache-Control: max-age=0
+Cookie: session=FIW1ucdD4PxfA8XyTPIa1cDGjNirxAV6; AWSALB=K9cp+OAEQS7RpriKmlEaS04vDX7O+56tegMNWaaeBduT2P6XRqRRsZMfRTv56TQgipy6nU6gH8P6HpkHehWAXDf3Zrh/uRr7QhtKWveGbxXd8AsQGMljztXgE+2B; AWSALBCORS=K9cp+OAEQS7RpriKmlEaS04vDX7O+56tegMNWaaeBduT2P6XRqRRsZMfRTv56TQgipy6nU6gH8P6HpkHehWAXDf3Zrh/uRr7QhtKWveGbxXd8AsQGMljztXgE+2B
+Origin: https://ginandjuice.shop
+Upgrade-Insecure-Requests: 1
+Referer: https://ginandjuice.shop/catalog/product?productId=4
+Content-Type: application/x-www-form-urlencoded
+Sec-CH-UA: ".Not/A)Brand";v="99", "Google Chrome";v="108", "Chromium";v="108"
+Sec-CH-UA-Platform: Windows
+Sec-CH-UA-Mobile: ?0
+Content-Length: 49
+
+term=94835242241'%3balert(1)%2f%2f311&csrf=qAOepuL7DhRmGBMH5coH6OS1GfQq7Bf7
+
+Response:
+HTTP/2 200 OK
+Date: Wed, 01 Feb 2023 16:52:15 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 3633
+Set-Cookie: AWSALB=MV3YNivY4PLvGO/ZiC7wBqdFVfgGV8aHo+AEr0MsFlZMcDza+S+gRc1jkfQxSzIGPBiUEAALNcVyc02D6dQRvhohJF/VuuXSFQ+vVd4WxE60qw1GCTfL2NKknDn3; Expires=Wed, 08 Feb 2023 16:52:15 GMT; Path=/
+Set-Cookie: AWSALBCORS=MV3YNivY4PLvGO/ZiC7wBqdFVfgGV8aHo+AEr0MsFlZMcDza+S+gRc1jkfQxSzIGPBiUEAALNcVyc02D6dQRvhohJF/VuuXSFQ+vVd4WxE60qw1GCTfL2NKknDn3; Expires=Wed, 08 Feb 2023 16:52:15 GMT; Path=/; SameSite=None; Secure
+X-Backend: 0a2f543b-bfc8-4c88-b6fa-e2cbfec5965b
+
+<!DOCTYPE html>
+<html>
+<head>
+<link href=/resources/labheader/css/scanMeHeader.css rel=stylesheet>
+<link href=/resources/css/labsEcommerce.css rel=stylesheet>
+<link href=/rSnip<script>
+var searchTerms = '94835242241';alert(1)//311';
+document.write('<img src="/resources/images/tracker.gif?searchTerms='+encodeURIComponent(searchTerms)+'">Snip
+
+
+
+References
+	
+- Web Security Academy: Cross-site scripting (https://portswigger.net/web-security/cross-site-scripting)
+
+- Web Security Academy: Reflected cross-site scripting (https://portswigger.net/web-security/cross-site-scripting/reflected)
+
+- Using Burp to Find XSS issues (https://support.portswigger.net/customer/portal/articles/1965737-Methodology_XSS.html)
+
+
+
+Vulnerability Classifications
+
+- CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') (https://cwe.mitre.org/data/definitions/79.html)
+
+- CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS) (https://cwe.mitre.org/data/definitions/80.html)
+
+- CWE-116: Improper Encoding or Escaping of Output (https://cwe.mitre.org/data/definitions/116.html)
+
+- CWE-159: Failure to Sanitize Special Element (https://cwe.mitre.org/data/definitions/159.html)
+
+- CAPEC-591: Reflected XSS (https://capec.mitre.org/data/definitions/591.html)
+
+
+
+Reported by Dastardly: https://portswigger.net/burp/dastardly/scan-checks
+]]></failure>
+        </testcase>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/search/6" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/search/7" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/search/8" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/catalog/search/9" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/logger" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/login" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/login" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/login" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/login" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/my-account" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/post?postId=4" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/post?postId=1" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/post?postId=3" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/post?postId=6" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/post?postId=2" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/post?postId=5" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/resources/css/labsBlog.css" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/resources/css/labsEcommerce.css" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/resources/css/labsScanme.css" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/resources/js/deparam.js" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/resources/js/searchLogger.js" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/resources/labheader/css/scanMeHeader.css" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+    <testsuite failures="0" name="https://ginandjuice.shop:443/robots.txt" tests="1">
+        <testcase name="No issues were identified"/>
+    </testsuite>
+</testsuites>
